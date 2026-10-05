@@ -6,7 +6,7 @@ Et program i systemstatusfeltet med et overlegg du åpner med hurtigtast. Det ta
 
 ## Installere
 
-1. Kjør `Intervjueren-Setup-2.0.0.exe`. Du trenger ikke administratorrettigheter, og ingenting annet må installeres: alt programmet trenger (opptaksmotor og ffmpeg) følger med.
+1. Kjør `Intervjueren-Setup.exe`. Du trenger ikke administratorrettigheter, og ingenting annet må installeres: alt programmet trenger (opptaksmotor og ffmpeg) følger med.
 2. Velg mappe, og kryss av for det du vil ha:
    - **Legg til i Start-menyen**
    - **Lag snarvei på skrivebordet**
@@ -91,7 +91,7 @@ npm run dist
 Detaljer:
 
 - `npm run engine` bygger opptaksmotoren på nytt (krever Rust) og kopierer den til `bin\`. Trengs bare etter endringer i `engine\`.
-- `npm run dist` lager installasjonsprogrammet `release\Intervjueren-Setup-<versjon>.exe` (sidene med avkrysningsbokser ligger i `build\installer.nsh`). `npm run pack` lager bare den utpakkede appen i `release\win-unpacked\`.
+- `npm run dist` lager installasjonsprogrammet `release\Intervjueren-Setup.exe` (sidene med avkrysningsbokser ligger i `build\installer.nsh`). `npm run pack` lager bare den utpakkede appen i `release\win-unpacked\`.
 - `Start Intervjueren.bat` starter appen rett fra kildekoden.
 - `bin\ffmpeg.exe` er gyan.dev **ffmpeg 8.0.1 essentials** (GPL, lisens i `bin\ffmpeg-LICENSE.txt`). Ikke bytt til ffmpeg 9.0: der feiler `scale_d3d11`, som NVENC-opptaket trenger.
 - Opptaksmotoren bygges med statisk C-runtime (`engine\.cargo\config.toml`), så brukerne ikke trenger Visual C++ Redistributable.

@@ -45,7 +45,7 @@
       "installerIcon": "build/icon.ico",
       "uninstallerIcon": "build/icon.ico",
       "uninstallDisplayName": "Intervjueren",
-      "artifactName": "Intervjueren-Setup-${version}.${ext}"
+      "artifactName": "Intervjueren-Setup.${ext}"
     },
     "directories": {
       "output": "release"
