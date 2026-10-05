@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <title>Intervjueren</title>
+  <defs>
+    <clipPath id="tile"><rect width="256" height="256" rx="30"/></clipPath>
+    <clipPath id="capsule"><rect x="86" y="44" width="68" height="112" rx="34"/></clipPath>
+  </defs>
+  <g clip-path="url(#tile)">
+    <rect width="256" height="256" fill="#0e121b"/>
+    <!-- card accent stripe -->
+    <rect width="16" height="256" fill="#1fc6f2"/>
+  </g>
+
+  <!-- studio microphone: capsule with grille, yoke, stand -->
+  <path d="M68 108 v8 a52 52 0 0 0 104 0 v-8" fill="none" stroke="#1fc6f2" stroke-width="13" stroke-linecap="round"/>
+  <rect x="113" y="166" width="14" height="32" fill="#1fc6f2"/>
+  <rect x="80" y="196" width="80" height="14" rx="7" fill="#1fc6f2"/>
+  <rect x="86" y="44" width="68" height="112" rx="34" fill="#f3f5f8"/>
+  <g clip-path="url(#capsule)" stroke="#0e121b" stroke-width="6" stroke-linecap="round" opacity=".32">
+    <line x1="100" y1="70" x2="140" y2="70"/>
+    <line x1="100" y1="86" x2="140" y2="86"/>
+    <line x1="100" y1="102" x2="140" y2="102"/>
+  </g>
+  <rect x="86" y="118" width="68" height="7" fill="#0e121b" opacity=".18"/>
+
+  <!-- record badge: its own corner circle, separated from the mic by a gap -->
+  <circle cx="208" cy="48" r="36" fill="#0e121b"/>
+  <circle cx="208" cy="48" r="27" fill="none" stroke="#f3f5f8" stroke-width="6"/>
+  <circle id="rec" cx="208" cy="48" r="16" fill="#ff4646"/>
+</svg>

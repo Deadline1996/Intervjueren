@@ -1,0 +1,24 @@
+[package]
+name = "intervjueren-engine"
+version = "1.0.0"
+description = "Recording engine for Intervjueren: GPU screen capture (ffmpeg/NVENC) + WASAPI audio mixing"
+edition = "2021"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+cpal = "0.15"
+nnnoiseless = "0.5"
+chrono = { version = "0.4", default-features = false, features = ["clock"] }
+windows = { version = "0.61", features = [
+  "Win32_Foundation",
+  "Win32_Graphics_Dxgi",
+  "Win32_Graphics_Dxgi_Common",
+  "Win32_Graphics_Gdi",
+] }
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+strip = true

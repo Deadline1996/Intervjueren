@@ -1,0 +1,14 @@
+# dependencies and build output
+node_modules/
+dist/
+release/
+engine/target/
+
+# ffmpeg is downloaded by `npm run ffmpeg` (too large for git)
+bin/ffmpeg.exe
+
+# Tauri version
+Tauri-Version/node_modules/
+Tauri-Version/src-tauri/target/
+Tauri-Version/src-tauri/gen/
+Tauri-Version/src-tauri/resources/ffmpeg.exe

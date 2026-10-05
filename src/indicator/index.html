@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; font-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'">
+<style>
+  @font-face { font-family: 'Barlow Condensed'; font-weight: 800; font-style: italic; src: url(fonts/barlow-condensed-latin-800-italic.woff2) format('woff2'); }
+  html, body { margin: 0; background: transparent; overflow: hidden; user-select: none; }
+  body { display: flex; justify-content: center; align-items: center; height: 100vh; }
+  .pill {
+    display: flex; align-items: center; gap: 9px;
+    padding: 7px 16px 7px 12px;
+    background: rgba(14, 18, 27, 0.92); border-left: 4px solid #1fc6f2;
+    color: #f3f5f8; font: 800 italic 16px/1 'Barlow Condensed', 'Segoe UI', sans-serif;
+    letter-spacing: .05em; text-transform: uppercase;
+    font-variant-numeric: tabular-nums; white-space: nowrap;
+  }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: #ff4646; }
+  .dim .dot { opacity: .25; }
+  .paused { border-left-color: #ffb020; }
+  .paused .dot { background: #ffb020; }
+  .saving .dot { background: #1fc6f2; }
+  .saved { border-left-color: #3ddc84; }
+  .saved .dot { background: #3ddc84; }
+  .error { border-left-color: #ff4646; }
+  .flash { border-left-color: #ffb020; }
+</style>
+</head>
+<body>
+  <div class="pill" id="pill"><span class="dot"></span><span id="text">REC 00:00:00</span></div>
+<script>
+  const pill = document.getElementById('pill');
+  const text = document.getElementById('text');
+  let holdUntil = 0;
+  let dim = false;
+  window.api.on('indicator:update', ({ state, text: t, flash }) => {
+    const now = Date.now();
+    if (!flash && now < holdUntil && (state === 'recording' || state === 'paused')) return;
+    if (flash) holdUntil = now + 1800;
+    // Blink by toggling on each update (main sends two per second) instead of a CSS animation,
+    // which would repaint 60×/s under software rendering.
+    dim = state === 'recording' && !flash && !dim;
+    pill.className = `pill ${state}${flash ? ' flash' : ''}${dim ? ' dim' : ''}`;
+    text.textContent = t;
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; media-src 'self' blob: mediastream:">
+<title>Intervjueren</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="panel" id="panel">
+  <header class="titlebar">
+    <img class="logo" src="logo.svg" alt="" draggable="false">
+    <div class="brand">
+      <span class="kicker">FiveM · intervjuopptak</span>
+      <span class="title">Intervjueren</span>
+    </div>
+    <button class="icon-btn" id="closeBtn" title="Skjul overlegg (Esc)">
+      <svg viewBox="0 0 16 16" width="14" height="14"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="2"/></svg>
+    </button>
+  </header>
+
+  <nav class="modes" id="modeSeg">
+    <button data-mode="video"><span>Video + lyd</span><small>MP4</small></button>
+    <button data-mode="audio"><span>Kun lyd</span><small id="audioFmtLabel">MP3</small></button>
+  </nav>
+
+  <section class="card status" id="status">
+    <div class="card-head">
+      <span class="kicker">Status</span>
+      <span class="state" id="stateLabel">Klar</span>
+    </div>
+    <div class="timer" id="timer">00:00:00</div>
+    <div class="progress hidden" id="progress"><div id="progressBar"></div></div>
+    <div class="controls">
+      <button class="rec-btn" id="recBtn"><span class="rec-icon"></span><span id="recBtnText">Start opptak</span></button>
+      <button class="ctl-btn" id="pauseBtn" disabled title="Pause / fortsett">
+        <svg class="i-pause" viewBox="0 0 16 16" width="16" height="16"><rect x="3" y="2" width="3.5" height="12" fill="currentColor"/><rect x="9.5" y="2" width="3.5" height="12" fill="currentColor"/></svg>
+        <svg class="i-play" viewBox="0 0 16 16" width="16" height="16"><path d="M4 2l10 6-10 6z" fill="currentColor"/></svg>
+      </button>
+      <button class="ctl-btn" id="markerBtn" disabled title="Sett en tidsmarkør">
+        <svg viewBox="0 0 16 16" width="16" height="16"><path d="M4 1h8v14l-4-3.2L4 15z" fill="currentColor"/></svg>
+      </button>
+    </div>
+    <div class="meta" id="metaLine"></div>
+  </section>
+
+  <section class="cells">
+    <div class="cell">
+      <span class="kicker">Mikrofon</span>
+      <div class="meter" id="micMeterRow"><div class="meter-fill" id="micMeter"></div></div>
+    </div>
+    <div class="cell">
+      <span class="kicker">Spill og talechat</span>
+      <div class="meter" id="sysMeterRow"><div class="meter-fill" id="sysMeter"></div></div>
+    </div>
+    <div class="cell wide save-to">
+      <div class="save-path">
+        <span class="kicker">Lagres i</span>
+        <span class="save-dir" id="outputDir"></span>
+      </div>
+      <button class="small-btn" id="browseBtn" title="Velg hvor opptak skal lagres">Endre</button>
+    </div>
+  </section>
+
+  <div class="toasts" id="toasts"></div>
+
+  <section class="recent">
+    <div class="section-head">
+      <span>Siste opptak</span>
+      <button class="link-btn" id="openFolderBtn">Åpne mappe</button>
+    </div>
+    <ul id="recentList"><li class="empty">Ingen opptak ennå.</li></ul>
+  </section>
+
+  <details class="settings" id="settings">
+    <summary>Innstillinger</summary>
+    <fieldset id="lockable">
+      <h4>Video</h4>
+      <label class="field"><span>Skjerm</span><select id="displayId"></select></label>
+      <div class="grid3">
+        <label class="field"><span>Oppløsning</span>
+          <select id="resolution">
+            <option value="native">Opprinnelig</option>
+            <option value="1440">1440p</option>
+            <option value="1080">1080p</option>
+            <option value="720">720p</option>
+          </select>
+        </label>
+        <label class="field"><span>FPS</span>
+          <select id="fps"><option value="30">30</option><option value="60">60</option></select>
+        </label>
+        <label class="field"><span>Kvalitet</span>
+          <select id="quality">
+            <option value="low">Lav</option>
+            <option value="medium">Middels</option>
+            <option value="high">Høy</option>
+          </select>
+        </label>
+      </div>
+
+      <h4>Lyd</h4>
+      <label class="check"><input type="checkbox" id="captureSystemAudio"> Spill og talechat (systemlyd)</label>
+      <label class="slider"><span>Volum</span><input type="range" id="systemVolume" min="0" max="2" step="0.05"><output id="systemVolumeOut"></output></label>
+      <label class="check"><input type="checkbox" id="captureMic"> Min mikrofon</label>
+      <label class="field"><select id="micDeviceId"></select></label>
+      <label class="slider"><span>Volum</span><input type="range" id="micVolume" min="0" max="2" step="0.05"><output id="micVolumeOut"></output></label>
+      <label class="check"><input type="checkbox" id="noiseSuppression"> Støydemping på mikrofon</label>
+      <label class="field"><span>Format for kun lyd</span>
+        <select id="audioFormat">
+          <option value="mp3">MP3 (minst, fungerer overalt)</option>
+          <option value="m4a">M4A / AAC</option>
+          <option value="wav">WAV (ukomprimert)</option>
+        </select>
+      </label>
+    </fieldset>
+
+    <h4>Hurtigtaster <small>(klikk i en boks og trykk kombinasjonen)</small></h4>
+    <div class="hotkeys">
+      <label><span>Vis / skjul overlegg</span><input class="hotkey" data-key="toggleOverlay" readonly></label>
+      <label><span>Start / stopp opptak</span><input class="hotkey" data-key="toggleRecord" readonly></label>
+      <label><span>Pause / fortsett</span><input class="hotkey" data-key="pause" readonly></label>
+      <label><span>Sett markør</span><input class="hotkey" data-key="marker" readonly></label>
+    </div>
+
+    <h4>Annet</h4>
+    <label class="check"><input type="checkbox" id="showIndicator"> Vis liten REC-indikator over spillet</label>
+    <label class="field"><span>Hjørne for indikator</span>
+      <select id="indicatorCorner">
+        <option value="top-left">Øverst til venstre</option>
+        <option value="top-right">Øverst til høyre</option>
+        <option value="bottom-left">Nederst til venstre</option>
+        <option value="bottom-right">Nederst til høyre</option>
+      </select>
+    </label>
+    <label class="check"><input type="checkbox" id="keepRaw"> Behold rå sikkerhetskopier (i .raw-mappen)</label>
+  </details>
+
+  <footer class="hints" id="hints"></footer>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

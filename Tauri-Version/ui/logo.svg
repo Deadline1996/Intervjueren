@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <title>Intervjueren</title>
+  <defs>
+    <clipPath id="tile"><rect width="256" height="256" rx="30"/></clipPath>
+    <clipPath id="head"><circle r="44"/></clipPath>
+  </defs>
+  <g clip-path="url(#tile)">
+    <rect width="256" height="256" fill="#0e121b"/>
+    <!-- slanted bar, like the selected item in the server's quick menu -->
+    <polygon points="0,178 256,178 236,214 0,214" fill="#232c3d"/>
+    <!-- card accent stripe -->
+    <rect width="16" height="256" fill="#1fc6f2"/>
+  </g>
+  <!-- reporter microphone, leaning with the italic slant -->
+  <g transform="translate(140 98) rotate(24)">
+    <circle r="44" fill="#1fc6f2"/>
+    <g clip-path="url(#head)" stroke="#0e121b" stroke-width="6" opacity=".3">
+      <line x1="-50" y1="-12" x2="50" y2="-12"/>
+      <line x1="-50" y1="10" x2="50" y2="10"/>
+    </g>
+    <rect x="-27" y="40" width="54" height="17" fill="#f3f5f8"/>
+    <polygon points="-21,57 21,57 12,140 -12,140" fill="#f3f5f8"/>
+    <rect x="-21" y="57" width="42" height="7" fill="#0e121b" opacity=".22"/>
+  </g>
+  <!-- REC dot -->
+  <circle cx="210" cy="46" r="17" fill="#ff4646"/>
+</svg>

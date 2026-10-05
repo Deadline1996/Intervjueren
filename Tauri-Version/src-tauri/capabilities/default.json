@@ -1,0 +1,7 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Lets the overlay and indicator windows call the app and listen for events.",
+  "windows": ["overlay", "indicator"],
+  "permissions": ["core:default"]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "intervjueren",
+  "private": true,
+  "version": "2.0.0",
+  "description": "Intervjueren (Tauri) – lett skjerm- og lydopptaker med overlegg for FiveM-intervjuer",
+  "scripts": {
+    "dev": "tauri dev",
+    "build": "tauri build",
+    "build:exe": "tauri build --no-bundle"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2"
+  }
+}
